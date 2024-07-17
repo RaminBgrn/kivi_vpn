@@ -39,6 +39,9 @@ dependencies:
   get: ^4.6.6
   flutter_getit: ^2.0.0
   flutter_gen: ^5.6.0
+  google_fonts: ^6.2.1
+  shared_preferences: ^2.2.3
+  gap: ^3.0.1
 
 dev_dependencies:
   flutter_test:

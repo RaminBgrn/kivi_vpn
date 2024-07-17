@@ -17,7 +17,7 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/intro_first.png');
 
   /// File path: assets/images/intro_secound.png
-  AssetGenImage get introSecound =>
+  AssetGenImage get introSecond =>
       const AssetGenImage('assets/images/intro_secound.png');
 
   /// File path: assets/images/intro_third.png
@@ -33,7 +33,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values =>
-      [introFirst, introSecound, introThird, logo, splashBackground];
+      [introFirst, introSecond, introThird, logo, splashBackground];
 }
 
 class $AssetsSvgsGen {
