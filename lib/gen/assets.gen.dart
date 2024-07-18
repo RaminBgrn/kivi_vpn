@@ -8,6 +8,9 @@
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
@@ -40,40 +43,46 @@ class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
   /// File path: assets/svgs/back.svg
-  String get back => 'assets/svgs/back.svg';
+  SvgGenImage get back => const SvgGenImage('assets/svgs/back.svg');
 
   /// File path: assets/svgs/config_details.svg
-  String get configDetails => 'assets/svgs/config_details.svg';
+  SvgGenImage get configDetails =>
+      const SvgGenImage('assets/svgs/config_details.svg');
 
   /// File path: assets/svgs/connect_button.svg
-  String get connectButton => 'assets/svgs/connect_button.svg';
+  SvgGenImage get connectButton =>
+      const SvgGenImage('assets/svgs/connect_button.svg');
 
   /// File path: assets/svgs/connection_time.svg
-  String get connectionTime => 'assets/svgs/connection_time.svg';
+  SvgGenImage get connectionTime =>
+      const SvgGenImage('assets/svgs/connection_time.svg');
 
   /// File path: assets/svgs/download.svg
-  String get download => 'assets/svgs/download.svg';
+  SvgGenImage get download => const SvgGenImage('assets/svgs/download.svg');
 
   /// File path: assets/svgs/ip.svg
-  String get ip => 'assets/svgs/ip.svg';
+  SvgGenImage get ip => const SvgGenImage('assets/svgs/ip.svg');
 
   /// File path: assets/svgs/location.svg
-  String get location => 'assets/svgs/location.svg';
+  SvgGenImage get location => const SvgGenImage('assets/svgs/location.svg');
 
   /// File path: assets/svgs/more_details.svg
-  String get moreDetails => 'assets/svgs/more_details.svg';
+  SvgGenImage get moreDetails =>
+      const SvgGenImage('assets/svgs/more_details.svg');
 
   /// File path: assets/svgs/ping_reload.svg
-  String get pingReload => 'assets/svgs/ping_reload.svg';
+  SvgGenImage get pingReload =>
+      const SvgGenImage('assets/svgs/ping_reload.svg');
 
   /// File path: assets/svgs/tap_to_check.svg
-  String get tapToCheck => 'assets/svgs/tap_to_check.svg';
+  SvgGenImage get tapToCheck =>
+      const SvgGenImage('assets/svgs/tap_to_check.svg');
 
   /// File path: assets/svgs/upload.svg
-  String get upload => 'assets/svgs/upload.svg';
+  SvgGenImage get upload => const SvgGenImage('assets/svgs/upload.svg');
 
   /// List of all assets
-  List<String> get values => [
+  List<SvgGenImage> get values => [
         back,
         configDetails,
         connectButton,
@@ -168,6 +177,83 @@ class AssetGenImage {
       _assetName,
       bundle: bundle,
       package: package,
+    );
+  }
+
+  String get path => _assetName;
+
+  String get keyName => _assetName;
+}
+
+class SvgGenImage {
+  const SvgGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  }) : _isVecFormat = false;
+
+  const SvgGenImage.vec(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  }) : _isVecFormat = true;
+
+  final String _assetName;
+  final Size? size;
+  final Set<String> flavors;
+  final bool _isVecFormat;
+
+  SvgPicture svg({
+    Key? key,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    String? package,
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder? placeholderBuilder,
+    String? semanticsLabel,
+    bool excludeFromSemantics = false,
+    SvgTheme? theme,
+    ColorFilter? colorFilter,
+    Clip clipBehavior = Clip.hardEdge,
+    @deprecated Color? color,
+    @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
+    @deprecated bool cacheColorFilter = false,
+  }) {
+    final BytesLoader loader;
+    if (_isVecFormat) {
+      loader = AssetBytesLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+      );
+    } else {
+      loader = SvgAssetLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+        theme: theme,
+      );
+    }
+    return SvgPicture(
+      loader,
+      key: key,
+      matchTextDirection: matchTextDirection,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
+      semanticsLabel: semanticsLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      colorFilter: colorFilter ??
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
+      clipBehavior: clipBehavior,
+      cacheColorFilter: cacheColorFilter,
     );
   }
 

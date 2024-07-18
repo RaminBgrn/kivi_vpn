@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kivi_vpn/core/base_controller.dart';
 import 'package:kivi_vpn/features/feature_splash/screen/splash_screen.dart';
-import 'package:kivi_vpn/features/feature_tour_intro/screen/tour_tutorial_intro_screen.dart';
 
 void main() {
   runApp(const MyApp());

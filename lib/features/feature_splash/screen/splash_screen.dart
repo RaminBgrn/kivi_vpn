@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen>
           if (!Get.find<ISharedPreference>().readTourTutorialData()) {
             Get.offAll(() => const TourTutorialIntroScreen());
           } else {
-            Get.offAll(const HomeScreen());
+            Get.offAll(() => const HomeScreen());
           }
         });
       }

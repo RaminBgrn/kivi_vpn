@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
+import 'package:kivi_vpn/features/feature_home/model/config_model.dart';
+import 'package:kivi_vpn/features/feature_home/widget/current_config_widget.dart';
+import 'package:svg_flag/svg_flag.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -40,7 +43,15 @@ class HomeScreen extends StatelessWidget {
                     fontSize: 34,
                     color: myGrey[200],
                     fontWeight: FontWeight.w400),
-              )
+              ),
+              const Gap(12),
+              CurrentConfigWidget(
+                model: ConfigModel(
+                  countryFlag: FlagData.tr,
+                  title: "United States",
+                  ipAddress: "127.0.0.1",
+                ),
+              ),
             ],
           ),
         ),
