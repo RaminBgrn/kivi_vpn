@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
+import 'package:kivi_vpn/core/v2ray_controller.dart';
 import 'package:kivi_vpn/features/feature_home/controller/home_controller.dart';
 import 'package:kivi_vpn/features/feature_home/widget/connect_button.dart';
 import 'package:kivi_vpn/features/feature_home/widget/current_config_widget.dart';
@@ -45,13 +45,15 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const Gap(8),
-              Text(
-                '00:30:25',
-                style: GoogleFonts.vazirmatn(
-                    fontSize: 34,
-                    color: myGrey[200],
-                    fontWeight: FontWeight.w400),
-              ),
+              GetBuilder<V2rayController>(builder: (clr) {
+                return Text(
+                  clr.getUpTime,
+                  style: GoogleFonts.vazirmatn(
+                      fontSize: 34,
+                      color: myGrey[200],
+                      fontWeight: FontWeight.w400),
+                );
+              }),
               const Gap(12),
               const CurrentConfigWidget(),
               const Gap(12),
@@ -110,6 +112,7 @@ class HomeScreen extends StatelessWidget {
               ),
               ExpandablePageView(
                 controller: Get.find<HomeController>().getPageController,
+                physics: const NeverScrollableScrollPhysics(),
                 children: const [
                   HomeButtonsSection(),
                   SpeedTestSection(),
@@ -117,19 +120,23 @@ class HomeScreen extends StatelessWidget {
               ),
               const Expanded(child: SizedBox()),
               ConnectButton(
-                onTap: () {},
+                onTap: () {
+                  Get.find<HomeController>().connectDisconnect();
+                },
               ),
               const Gap(16),
-              AutoSizeText(
-                'متصل شد',
-                presetFontSizes: const [16, 14, 12, 10, 8],
-                overflow: TextOverflow.fade,
-                maxLines: 1,
-                style: GoogleFonts.vazirmatn(
-                  fontWeight: FontWeight.w300,
-                  color: myGrey[400],
-                ),
-              ),
+              GetBuilder<V2rayController>(builder: (clr) {
+                return AutoSizeText(
+                  clr.getVpnState == "CONNECTED" ? 'متصل شد' : "عدم اتصال",
+                  presetFontSizes: const [16, 14, 12, 10, 8],
+                  overflow: TextOverflow.fade,
+                  maxLines: 1,
+                  style: GoogleFonts.vazirmatn(
+                    fontWeight: FontWeight.w300,
+                    color: myGrey[400],
+                  ),
+                );
+              }),
               const Gap(16),
             ],
           ),

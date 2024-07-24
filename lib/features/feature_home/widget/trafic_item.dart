@@ -35,7 +35,7 @@ class TraficItem extends StatelessWidget {
                 ),
               ),
               AutoSizeText(
-                '$speed KB/s',
+                speed,
                 presetFontSizes: const [14, 12, 10],
                 maxLines: 1,
                 style: GoogleFonts.vazirmatn(

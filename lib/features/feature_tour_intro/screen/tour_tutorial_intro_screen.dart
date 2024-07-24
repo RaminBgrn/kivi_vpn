@@ -45,7 +45,7 @@ class TourTutorialIntroScreen extends StatelessWidget {
                       Get.find<TourTutorialController>().onNextButtonClick();
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: buttonColor,
+                      backgroundColor: enableButtonColor,
                       fixedSize: Size(MediaQuery.sizeOf(context).width, 64),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),

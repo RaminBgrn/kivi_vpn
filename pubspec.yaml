@@ -48,6 +48,7 @@ dependencies:
   flutter_internet_speed_test: ^1.0.4
   expandable_page_view: ^1.0.17
   dashed_circular_progress_bar: ^0.0.6
+  loading_animation_widget: ^1.2.1
  
 
 dev_dependencies:

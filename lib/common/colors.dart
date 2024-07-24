@@ -156,4 +156,5 @@ const Map<int, Color> myRose = {
   900: Color(0xFF89123E),
 };
 
-const Color buttonColor = Color(0xFF7A960F);
+const Color enableButtonColor = Color(0xFF7A960F);
+const Color disableButtonColor = Color(0xFF1B202A);
