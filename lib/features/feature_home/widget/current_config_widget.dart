@@ -5,12 +5,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
 import 'package:kivi_vpn/features/feature_home/controller/home_controller.dart';
-import 'package:kivi_vpn/features/feature_home/model/config_model.dart';
 import 'package:svg_flag/svg_flag.dart';
 
 class CurrentConfigWidget extends StatelessWidget {
-  final ConfigModel model;
-  const CurrentConfigWidget({required this.model, super.key});
+  const CurrentConfigWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

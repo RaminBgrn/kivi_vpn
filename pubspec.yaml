@@ -45,6 +45,10 @@ dependencies:
   svg_flag: ^1.5.1
   ip_country_lookup: ^1.0.3
   auto_size_text: ^3.0.0
+  flutter_internet_speed_test: ^1.0.4
+  internet_speed_meter: ^1.0.3
+  expandable_page_view: ^1.0.17
+ 
 
 dev_dependencies:
   flutter_test:

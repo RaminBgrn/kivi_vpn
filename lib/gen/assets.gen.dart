@@ -49,6 +49,10 @@ class $AssetsSvgsGen {
   SvgGenImage get configDetails =>
       const SvgGenImage('assets/svgs/config_details.svg');
 
+  /// File path: assets/svgs/config_page.svg
+  SvgGenImage get configPage =>
+      const SvgGenImage('assets/svgs/config_page.svg');
+
   /// File path: assets/svgs/connect_button.svg
   SvgGenImage get connectButton =>
       const SvgGenImage('assets/svgs/connect_button.svg');
@@ -74,9 +78,16 @@ class $AssetsSvgsGen {
   SvgGenImage get pingReload =>
       const SvgGenImage('assets/svgs/ping_reload.svg');
 
+  /// File path: assets/svgs/speed_test.svg
+  SvgGenImage get speedTest => const SvgGenImage('assets/svgs/speed_test.svg');
+
   /// File path: assets/svgs/tap_to_check.svg
   SvgGenImage get tapToCheck =>
       const SvgGenImage('assets/svgs/tap_to_check.svg');
+
+  /// File path: assets/svgs/trafic_page.svg
+  SvgGenImage get traficPage =>
+      const SvgGenImage('assets/svgs/trafic_page.svg');
 
   /// File path: assets/svgs/upload.svg
   SvgGenImage get upload => const SvgGenImage('assets/svgs/upload.svg');
@@ -85,6 +96,7 @@ class $AssetsSvgsGen {
   List<SvgGenImage> get values => [
         back,
         configDetails,
+        configPage,
         connectButton,
         connectionTime,
         download,
@@ -92,7 +104,9 @@ class $AssetsSvgsGen {
         location,
         moreDetails,
         pingReload,
+        speedTest,
         tapToCheck,
+        traficPage,
         upload
       ];
 }

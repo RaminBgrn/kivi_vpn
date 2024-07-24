@@ -1,10 +1,15 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
-import 'package:kivi_vpn/features/feature_home/model/config_model.dart';
+import 'package:kivi_vpn/features/feature_home/widget/connect_button.dart';
 import 'package:kivi_vpn/features/feature_home/widget/current_config_widget.dart';
-import 'package:svg_flag/svg_flag.dart';
+import 'package:kivi_vpn/features/feature_home/widget/home_button.dart';
+import 'package:kivi_vpn/features/feature_home/widget/home_buttons_section.dart';
+import 'package:kivi_vpn/gen/assets.gen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -45,13 +50,75 @@ class HomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.w400),
               ),
               const Gap(12),
-              CurrentConfigWidget(
-                model: ConfigModel(
-                  countryFlag: FlagData.tr,
-                  title: "United States",
-                  ipAddress: "127.0.0.1",
+              const CurrentConfigWidget(),
+              const Gap(12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  HomeButton(
+                    backgroundColor: myOrange[300]!.withOpacity(0.1),
+                    onTap: () {},
+                    icon: Assets.svgs.traficPage.svg(
+                      width: 40,
+                      height: 40,
+                      colorFilter: ColorFilter.mode(
+                        myOrange[200]!,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                  HomeButton(
+                    backgroundColor: myGreen[300]!.withOpacity(0.1),
+                    onTap: () {},
+                    icon: Assets.svgs.speedTest.svg(
+                      width: 50,
+                      height: 50,
+                      colorFilter: ColorFilter.mode(
+                        myGreen[200]!,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                  HomeButton(
+                    backgroundColor: myPink[300]!.withOpacity(0.1),
+                    onTap: () {},
+                    icon: Assets.svgs.configPage.svg(
+                      width: 40,
+                      height: 40,
+                      colorFilter: ColorFilter.mode(
+                        myPink[200]!,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              ExpandablePageView(
+                children: [
+                  const HomeButtonsSection(),
+                  Container(
+                    width: double.infinity,
+                    height: 100,
+                    color: Colors.red,
+                  ),
+                ],
+              ),
+              const Expanded(child: SizedBox()),
+              ConnectButton(
+                onTap: () {},
+              ),
+              const Gap(16),
+              AutoSizeText(
+                'متصل شد',
+                presetFontSizes: const [16, 14, 12, 10, 8],
+                overflow: TextOverflow.fade,
+                maxLines: 1,
+                style: GoogleFonts.vazirmatn(
+                  fontWeight: FontWeight.w300,
+                  color: myGrey[400],
                 ),
               ),
+              const Gap(16),
             ],
           ),
         ),
