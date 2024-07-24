@@ -3,12 +3,15 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
+import 'package:kivi_vpn/features/feature_home/controller/home_controller.dart';
 import 'package:kivi_vpn/features/feature_home/widget/connect_button.dart';
 import 'package:kivi_vpn/features/feature_home/widget/current_config_widget.dart';
 import 'package:kivi_vpn/features/feature_home/widget/home_button.dart';
 import 'package:kivi_vpn/features/feature_home/widget/home_buttons_section.dart';
+import 'package:kivi_vpn/features/feature_speed_test/widget/speed_test_section.dart';
 import 'package:kivi_vpn/gen/assets.gen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -57,7 +60,13 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   HomeButton(
                     backgroundColor: myOrange[300]!.withOpacity(0.1),
-                    onTap: () {},
+                    onTap: () {
+                      Get.find<HomeController>()
+                          .getPageController
+                          .animateToPage(0,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.fastEaseInToSlowEaseOut);
+                    },
                     icon: Assets.svgs.traficPage.svg(
                       width: 40,
                       height: 40,
@@ -69,7 +78,13 @@ class HomeScreen extends StatelessWidget {
                   ),
                   HomeButton(
                     backgroundColor: myGreen[300]!.withOpacity(0.1),
-                    onTap: () {},
+                    onTap: () {
+                      Get.find<HomeController>()
+                          .getPageController
+                          .animateToPage(1,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.fastEaseInToSlowEaseOut);
+                    },
                     icon: Assets.svgs.speedTest.svg(
                       width: 50,
                       height: 50,
@@ -94,13 +109,10 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               ExpandablePageView(
-                children: [
-                  const HomeButtonsSection(),
-                  Container(
-                    width: double.infinity,
-                    height: 100,
-                    color: Colors.red,
-                  ),
+                controller: Get.find<HomeController>().getPageController,
+                children: const [
+                  HomeButtonsSection(),
+                  SpeedTestSection(),
                 ],
               ),
               const Expanded(child: SizedBox()),
