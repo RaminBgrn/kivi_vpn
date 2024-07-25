@@ -59,47 +59,48 @@ class HomeScreen extends StatelessWidget {
                 const Gap(12),
                 const CurrentConfigWidget(),
                 const Gap(12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    HomeButton(
-                        backgroundColor: myOrange[300]!.withOpacity(0.1),
+                GetBuilder<HomeController>(builder: (clr) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      HomeButton(
                         onTap: () {
-                          Get.find<HomeController>()
-                              .getPageController
-                              .animateToPage(0,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.fastEaseInToSlowEaseOut);
+                          clr.navigatePageView(0);
                         },
+                        id: 0,
+                        currentIndex: clr.getCurrentIndex,
                         icon: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 6.0),
                           child: Assets.images.traffic
                               .image(width: 50, height: 50),
-                        )),
-                    HomeButton(
-                      backgroundColor: myGreen[300]!.withOpacity(0.1),
-                      onTap: () {
-                        Get.find<HomeController>()
-                            .getPageController
-                            .animateToPage(1,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.fastEaseInToSlowEaseOut);
-                      },
-                      icon: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 6.0, left: 6.0, bottom: 4.0),
-                        child: Assets.images.speed.image(width: 50, height: 50),
+                        ),
                       ),
-                    ),
-                    HomeButton(
-                      backgroundColor: myPink[300]!.withOpacity(0.1),
-                      onTap: () {
-                        Get.to(const ConfigScreen());
-                      },
-                      icon: Assets.images.servers.image(width: 50, height: 50),
-                    ),
-                  ],
-                ),
+                      HomeButton(
+                        onTap: () {
+                          clr.navigatePageView(1);
+                        },
+                        id: 1,
+                        currentIndex: clr.getCurrentIndex,
+                        icon: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 6.0, left: 6.0, bottom: 4.0),
+                          child:
+                              Assets.images.speed.image(width: 50, height: 50),
+                        ),
+                      ),
+                      HomeButton(
+                        onTap: () {
+                          Get.to(const ConfigScreen());
+                          clr.navigatePageView(0);
+                        },
+                        id: 3,
+                        currentIndex: clr.getCurrentIndex,
+                        icon:
+                            Assets.images.servers.image(width: 50, height: 50),
+                      ),
+                    ],
+                  );
+                }),
                 ExpandablePageView(
                   controller: Get.find<HomeController>().getPageController,
                   physics: const NeverScrollableScrollPhysics(),

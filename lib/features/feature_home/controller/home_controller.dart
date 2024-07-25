@@ -9,8 +9,8 @@ import 'package:kivi_vpn/features/feature_home/model/config_model.dart';
 import 'package:svg_flag/svg_flag.dart';
 
 class HomeController extends GetxController {
-  final ConfigModel _configModel = ConfigModel();
-  ConfigModel get getConfigModel => _configModel;
+  final CountryDataModel _configModel = CountryDataModel();
+  CountryDataModel get getConfigModel => _configModel;
 
   final PageController _pageController = PageController();
   PageController get getPageController => _pageController;
@@ -26,6 +26,9 @@ class HomeController extends GetxController {
 
   String _isp = "نامشخص";
   String get getISP => _isp;
+
+  int _currentIndex = 0;
+  int get getCurrentIndex => _currentIndex;
 
   void initButtonColor() {
     final controller = Get.find<V2rayController>();
@@ -82,5 +85,13 @@ class HomeController extends GetxController {
         lookupToFlag();
       });
     }
+  }
+
+  void navigatePageView(int index) {
+    _currentIndex = index;
+    _pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.fastEaseInToSlowEaseOut);
+    update();
   }
 }

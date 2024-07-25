@@ -64,6 +64,9 @@ class $AssetsImagesGen {
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
+  /// File path: assets/svgs/add.svg
+  SvgGenImage get add => const SvgGenImage('assets/svgs/add.svg');
+
   /// File path: assets/svgs/back.svg
   SvgGenImage get back => const SvgGenImage('assets/svgs/back.svg');
 
@@ -83,8 +86,17 @@ class $AssetsSvgsGen {
   SvgGenImage get connectionTime =>
       const SvgGenImage('assets/svgs/connection_time.svg');
 
+  /// File path: assets/svgs/delete.svg
+  SvgGenImage get delete => const SvgGenImage('assets/svgs/delete.svg');
+
   /// File path: assets/svgs/download.svg
   SvgGenImage get download => const SvgGenImage('assets/svgs/download.svg');
+
+  /// File path: assets/svgs/edit.svg
+  SvgGenImage get edit => const SvgGenImage('assets/svgs/edit.svg');
+
+  /// File path: assets/svgs/filter.svg
+  SvgGenImage get filter => const SvgGenImage('assets/svgs/filter.svg');
 
   /// File path: assets/svgs/ip.svg
   SvgGenImage get ip => const SvgGenImage('assets/svgs/ip.svg');
@@ -99,6 +111,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/ping_reload.svg
   SvgGenImage get pingReload =>
       const SvgGenImage('assets/svgs/ping_reload.svg');
+
+  /// File path: assets/svgs/run.svg
+  SvgGenImage get run => const SvgGenImage('assets/svgs/run.svg');
 
   /// File path: assets/svgs/speed_test.svg
   SvgGenImage get speedTest => const SvgGenImage('assets/svgs/speed_test.svg');
@@ -116,16 +131,21 @@ class $AssetsSvgsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
+        add,
         back,
         configDetails,
         configPage,
         connectButton,
         connectionTime,
+        delete,
         download,
+        edit,
+        filter,
         ip,
         location,
         moreDetails,
         pingReload,
+        run,
         speedTest,
         tapToCheck,
         traficPage,
