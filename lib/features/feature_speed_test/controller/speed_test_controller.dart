@@ -16,7 +16,7 @@ class SpeedTestController extends GetxController {
   double _uploadSpeed = 0;
   double get getUploadSpeed => _uploadSpeed;
 
-  TestType _testType = TestType.DOWNLOAD;
+  final TestType _testType = TestType.DOWNLOAD;
   TestType get getTestType => _testType;
 
   SpeedUnit? _speedUnit;

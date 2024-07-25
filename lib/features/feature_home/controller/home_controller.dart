@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ip_country_lookup/ip_country_lookup.dart';
@@ -10,7 +12,7 @@ class HomeController extends GetxController {
   final ConfigModel _configModel = ConfigModel();
   ConfigModel get getConfigModel => _configModel;
 
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   PageController get getPageController => _pageController;
 
   Color _buttonBackgroundColor = disableButtonColor.withOpacity(0.4);
@@ -22,10 +24,24 @@ class HomeController extends GetxController {
   bool _animationFlag = false;
   bool get hasButtonClick => _animationFlag;
 
+  String _isp = "نامشخص";
+  String get getISP => _isp;
+
+  void initButtonColor() {
+    final controller = Get.find<V2rayController>();
+    log(controller.getVpnState);
+    if (controller.getVpnState == "CONNECTED") {
+      _buttonBackgroundColor = enableButtonColor.withOpacity(0.4);
+      _buttonForegroundColor = enableButtonColor;
+    }
+    update();
+  }
+
   @override
-  void onInit() {
+  void onReady() {
     lookupToFlag();
-    super.onInit();
+    initButtonColor();
+    super.onReady();
   }
 
   // locking for current internet ip and country name and flag
@@ -37,6 +53,7 @@ class HomeController extends GetxController {
         _configModel.countryFlag = FlagData(FlagData.values[i].source);
         _configModel.ipAddress = countryData.ip;
         _configModel.title = countryData.country_name;
+        _isp = countryData.isp ?? "نامشخص";
         update();
         break;
       }

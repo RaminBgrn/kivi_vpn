@@ -19,9 +19,9 @@ class $AssetsImagesGen {
   AssetGenImage get introFirst =>
       const AssetGenImage('assets/images/intro_first.png');
 
-  /// File path: assets/images/intro_secound.png
+  /// File path: assets/images/intro_second.png
   AssetGenImage get introSecond =>
-      const AssetGenImage('assets/images/intro_secound.png');
+      const AssetGenImage('assets/images/intro_second.png');
 
   /// File path: assets/images/intro_third.png
   AssetGenImage get introThird =>
@@ -30,13 +30,35 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/server_head.png
+  AssetGenImage get serverHead =>
+      const AssetGenImage('assets/images/server_head.png');
+
+  /// File path: assets/images/servers.png
+  AssetGenImage get servers => const AssetGenImage('assets/images/servers.png');
+
+  /// File path: assets/images/speed.png
+  AssetGenImage get speed => const AssetGenImage('assets/images/speed.png');
+
   /// File path: assets/images/splash_background.png
   AssetGenImage get splashBackground =>
       const AssetGenImage('assets/images/splash_background.png');
 
+  /// File path: assets/images/traffic.png
+  AssetGenImage get traffic => const AssetGenImage('assets/images/traffic.png');
+
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [introFirst, introSecond, introThird, logo, splashBackground];
+  List<AssetGenImage> get values => [
+        introFirst,
+        introSecond,
+        introThird,
+        logo,
+        serverHead,
+        servers,
+        speed,
+        splashBackground,
+        traffic
+      ];
 }
 
 class $AssetsSvgsGen {

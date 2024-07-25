@@ -26,6 +26,9 @@ class V2rayController extends GetxController {
   String _connectionTime = "00:00:00";
   String get getUpTime => _connectionTime;
 
+  int _serverDelay = 0;
+  int get getServerDelay => _serverDelay;
+
   @override
   void onInit() async {
     _parser = FlutterV2ray.parseFromURL(
@@ -37,8 +40,25 @@ class V2rayController extends GetxController {
       _connectionTime = state.duration;
       update();
     });
+
     await _flutterV2ray.initializeV2Ray();
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    _address = _parser.address;
+    _port = _parser.port.toString();
+    _remark = _parser.remark;
+    update();
+
+    super.onReady();
+  }
+
+  void getConnectedConfigDelay() async {
+    int delay = await _flutterV2ray.getConnectedServerDelay();
+    _serverDelay = delay;
+    update();
   }
 
   void connect() async {

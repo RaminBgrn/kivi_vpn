@@ -7,9 +7,9 @@ import 'package:kivi_vpn/features/feature_speed_test/controller/speed_test_contr
 class BaseController extends Bindings {
   @override
   void dependencies() {
+    Get.put(V2rayController());
     Get.put(ISharedPreference());
     Get.put(HomeController());
     Get.put(SpeedTestController());
-    Get.put(V2rayController());
   }
 }
