@@ -50,6 +50,8 @@ dependencies:
   dashed_circular_progress_bar: ^0.0.6
   loading_animation_widget: ^1.2.1
   draggable_home: ^1.0.5
+  qr_bar_code_scanner_dialog: ^0.0.5
+  qr_code_scanner: ^1.0.1
  
 
 dev_dependencies:

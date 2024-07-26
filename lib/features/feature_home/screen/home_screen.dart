@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
 import 'package:kivi_vpn/core/v2ray_controller.dart';
+import 'package:kivi_vpn/features/feature_configs/controller/configs_controller.dart';
 import 'package:kivi_vpn/features/feature_configs/screen/configs_screen.dart';
 import 'package:kivi_vpn/features/feature_home/controller/home_controller.dart';
 import 'package:kivi_vpn/features/feature_home/widget/connect_button.dart';
@@ -90,7 +91,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                       HomeButton(
                         onTap: () {
+                          Get.lazyPut(() => ConfigsController());
                           Get.to(const ConfigScreen());
+
                           clr.navigatePageView(0);
                         },
                         id: 3,

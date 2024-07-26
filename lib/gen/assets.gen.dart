@@ -15,6 +15,10 @@ import 'package:vector_graphics/vector_graphics.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/empty_list.png
+  AssetGenImage get emptyList =>
+      const AssetGenImage('assets/images/empty_list.png');
+
   /// File path: assets/images/intro_first.png
   AssetGenImage get introFirst =>
       const AssetGenImage('assets/images/intro_first.png');
@@ -49,6 +53,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+        emptyList,
         introFirst,
         introSecond,
         introThird,
@@ -69,6 +74,12 @@ class $AssetsSvgsGen {
 
   /// File path: assets/svgs/back.svg
   SvgGenImage get back => const SvgGenImage('assets/svgs/back.svg');
+
+  /// File path: assets/svgs/camera.svg
+  SvgGenImage get camera => const SvgGenImage('assets/svgs/camera.svg');
+
+  /// File path: assets/svgs/cancel.svg
+  SvgGenImage get cancel => const SvgGenImage('assets/svgs/cancel.svg');
 
   /// File path: assets/svgs/config_details.svg
   SvgGenImage get configDetails =>
@@ -115,12 +126,18 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/run.svg
   SvgGenImage get run => const SvgGenImage('assets/svgs/run.svg');
 
+  /// File path: assets/svgs/save.svg
+  SvgGenImage get save => const SvgGenImage('assets/svgs/save.svg');
+
   /// File path: assets/svgs/speed_test.svg
   SvgGenImage get speedTest => const SvgGenImage('assets/svgs/speed_test.svg');
 
   /// File path: assets/svgs/tap_to_check.svg
   SvgGenImage get tapToCheck =>
       const SvgGenImage('assets/svgs/tap_to_check.svg');
+
+  /// File path: assets/svgs/text.svg
+  SvgGenImage get text => const SvgGenImage('assets/svgs/text.svg');
 
   /// File path: assets/svgs/trafic_page.svg
   SvgGenImage get traficPage =>
@@ -133,6 +150,8 @@ class $AssetsSvgsGen {
   List<SvgGenImage> get values => [
         add,
         back,
+        camera,
+        cancel,
         configDetails,
         configPage,
         connectButton,
@@ -146,8 +165,10 @@ class $AssetsSvgsGen {
         moreDetails,
         pingReload,
         run,
+        save,
         speedTest,
         tapToCheck,
+        text,
         traficPage,
         upload
       ];
