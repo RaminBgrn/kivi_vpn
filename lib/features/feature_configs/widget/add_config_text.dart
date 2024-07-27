@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
+import 'package:kivi_vpn/features/feature_configs/controller/configs_controller.dart';
 import 'package:kivi_vpn/gen/assets.gen.dart';
 
 class AddConfigText extends StatelessWidget {
@@ -21,6 +22,10 @@ class AddConfigText extends StatelessWidget {
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextField(
+                  controller:
+                      Get.find<ConfigsController>().getConfigLinkController,
+                  style:
+                      GoogleFonts.vazirmatn(fontSize: 14, color: myGrey[300]),
                   decoration: InputDecoration(
                     label: Text(
                       'لینک کانفیگ رو وارد کن',
@@ -73,7 +78,9 @@ class AddConfigText extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.find<ConfigsController>().saveDataToDataBase();
+                  },
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 4),

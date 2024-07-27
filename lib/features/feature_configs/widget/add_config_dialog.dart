@@ -32,7 +32,7 @@ class AddConfigDialog {
                   Get.find<ConfigsController>().getDialogPageViewController,
               children: const [
                 AddConfigText(),
-                QrCodeReader(),
+                // QrCodeReader(),
               ],
             ),
           ],

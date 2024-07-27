@@ -1,5 +1,7 @@
 import 'package:flutter_v2ray/flutter_v2ray.dart';
 import 'package:get/get.dart';
+import 'package:kivi_vpn/common/colors.dart';
+import 'package:kivi_vpn/common/dialog_and_snack.dart';
 
 class V2rayController extends GetxController {
   late V2RayURL _parser;
@@ -32,7 +34,7 @@ class V2rayController extends GetxController {
   @override
   void onInit() async {
     _parser = FlutterV2ray.parseFromURL(
-        'vmess://eyJhZGQiOiJbMjYwNDphODgwOjQ6MWQwOjoyZjA6MzAwMF0iLCJhaWQiOiIwIiwiaG9zdCI6IiIsImlkIjoiNThlMDdlYWYtNjhjMC00MzVlLTkyNjMtMGMzYzU2ZGE1OWUxIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBvcnQiOiI0NDMiLCJwcyI6ImlyYW5jZWxsLVJhbWluIiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIifQ==');
+        'vmess://eyJhZGQiOiJbMmEwMTo0Zjg6MWMxYjo5OTk6OjFdIiwiYWlkIjoiMCIsImhvc3QiOiIiLCJpZCI6IjZkOWQ4NDM0LTIzMjAtNDI4MS1iNTA5LTc5N2VkNTc0MzRlOSIsIm5ldCI6InRjcCIsInBhdGgiOiIiLCJwb3J0IjoiNDQzIiwicHMiOiJpcHY2LURvbmF0ZSIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=');
     _flutterV2ray = FlutterV2ray(onStatusChanged: (state) {
       _vpnState = state.state;
       _downloadSpeed = state.downloadSpeed;
@@ -43,6 +45,18 @@ class V2rayController extends GetxController {
 
     await _flutterV2ray.initializeV2Ray();
     super.onInit();
+  }
+
+  void setConfigData(String link) async {
+    disconnect();
+    try {
+      _parser = FlutterV2ray.parseFromURL(link);
+      await _flutterV2ray.initializeV2Ray();
+    } catch (e) {
+      DialogAndSnack.showSnackBar(
+          'خطای فرمت', 'متاسفانه کانفیگ به درستی تنظیم نشد', myRed[900]!);
+    }
+    connect();
   }
 
   @override
@@ -62,12 +76,12 @@ class V2rayController extends GetxController {
   }
 
   void connect() async {
-    bool permission = await _flutterV2ray.requestPermission();
     _address = _parser.address;
     _port = _parser.port.toString();
     _remark = _parser.remark;
     update();
-    if (permission) {
+    await _flutterV2ray.initializeV2Ray();
+    if (await _flutterV2ray.requestPermission()) {
       _flutterV2ray.startV2Ray(
           remark: _parser.remark,
           config: _parser.getFullConfiguration(),

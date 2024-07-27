@@ -1,11 +1,9 @@
-import 'dart:ui';
-
 import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:kivi_vpn/common/colors.dart';
-import 'package:kivi_vpn/database/config_db.dart';
+
 import 'package:kivi_vpn/features/feature_configs/controller/configs_controller.dart';
 import 'package:kivi_vpn/features/feature_configs/model/config_model.dart';
 import 'package:kivi_vpn/features/feature_configs/widget/add_config_dialog.dart';
@@ -22,17 +20,6 @@ class ConfigScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFF080808),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            await ConfigDb().create(name: 'ramin', link: 'this is test link');
-            AddConfigDialog.addDialog();
-          },
-          backgroundColor: myGrey[800],
-          child: Assets.svgs.add.svg(
-              width: 40,
-              height: 40,
-              colorFilter: ColorFilter.mode(myGreen[500]!, BlendMode.srcIn)),
-        ),
         body: SafeArea(
           child: DraggableHome(
               appBarColor: Colors.transparent,

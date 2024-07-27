@@ -81,6 +81,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/cancel.svg
   SvgGenImage get cancel => const SvgGenImage('assets/svgs/cancel.svg');
 
+  /// File path: assets/svgs/clipboard.svg
+  SvgGenImage get clipboard => const SvgGenImage('assets/svgs/clipboard.svg');
+
   /// File path: assets/svgs/config_details.svg
   SvgGenImage get configDetails =>
       const SvgGenImage('assets/svgs/config_details.svg');
@@ -123,6 +126,9 @@ class $AssetsSvgsGen {
   SvgGenImage get pingReload =>
       const SvgGenImage('assets/svgs/ping_reload.svg');
 
+  /// File path: assets/svgs/qr_code.svg
+  SvgGenImage get qrCode => const SvgGenImage('assets/svgs/qr_code.svg');
+
   /// File path: assets/svgs/run.svg
   SvgGenImage get run => const SvgGenImage('assets/svgs/run.svg');
 
@@ -152,6 +158,7 @@ class $AssetsSvgsGen {
         back,
         camera,
         cancel,
+        clipboard,
         configDetails,
         configPage,
         connectButton,
@@ -164,6 +171,7 @@ class $AssetsSvgsGen {
         location,
         moreDetails,
         pingReload,
+        qrCode,
         run,
         save,
         speedTest,

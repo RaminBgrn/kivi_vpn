@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QrCodeReader extends StatefulWidget {
@@ -45,9 +47,8 @@ class _QrCodeReaderState extends State<QrCodeReader> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+      log(scanData.toString());
+      Get.back();
     });
   }
 

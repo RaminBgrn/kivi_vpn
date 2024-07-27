@@ -53,6 +53,7 @@ dependencies:
   qr_code_scanner: ^1.0.1
   sqflite: ^2.3.3+1
   path: ^1.9.0
+  get_storage: ^2.1.1
  
 
 dev_dependencies:
