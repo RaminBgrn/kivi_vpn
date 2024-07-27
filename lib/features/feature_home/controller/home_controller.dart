@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:ip_country_lookup/ip_country_lookup.dart';
 import 'package:kivi_vpn/common/colors.dart';
 import 'package:kivi_vpn/core/v2ray_controller.dart';
-import 'package:kivi_vpn/features/feature_home/model/config_model.dart';
+import 'package:kivi_vpn/features/feature_home/model/country_data_model.dart';
 import 'package:svg_flag/svg_flag.dart';
 
 class HomeController extends GetxController {

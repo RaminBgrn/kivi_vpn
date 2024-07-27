@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:kivi_vpn/common/colors.dart';
+import 'package:kivi_vpn/database/config_db.dart';
 import 'package:kivi_vpn/features/feature_configs/controller/configs_controller.dart';
 import 'package:kivi_vpn/features/feature_configs/model/config_model.dart';
 import 'package:kivi_vpn/features/feature_configs/widget/add_config_dialog.dart';
@@ -22,7 +23,8 @@ class ConfigScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: const Color(0xFF080808),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
+            await ConfigDb().create(name: 'ramin', link: 'this is test link');
             AddConfigDialog.addDialog();
           },
           backgroundColor: myGrey[800],

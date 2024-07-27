@@ -63,8 +63,10 @@ class AddConfigText extends StatelessWidget {
                         Assets.svgs.cancel.svg(
                           width: 30,
                           height: 30,
-                          colorFilter:
-                              ColorFilter.mode(myRed[400]!, BlendMode.srcIn),
+                          colorFilter: ColorFilter.mode(
+                            myRed[400]!,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ],
                     ),
