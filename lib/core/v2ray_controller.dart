@@ -51,7 +51,7 @@ class V2rayController extends GetxController {
       await _flutterV2ray.initializeV2Ray();
     } catch (e) {
       DialogAndSnack.showSnackBar(
-          'خطا', 'کانفیگ پیشفرض یافت پیدا نشد', myRed[500]!);
+          'خطا', 'کانفیگ پیش فرض یافت پیدا نشد', myRed[500]!);
     }
     super.onInit();
   }
@@ -67,11 +67,17 @@ class V2rayController extends GetxController {
   }
 
   void setConfig(String config) async {
-    disconnect();
+    // if (_vpnState == "CONNECTED") disconnect();
     try {
       _parser = FlutterV2ray.parseFromURL(config);
       await _flutterV2ray.initializeV2Ray();
-      connect();
+      // connect();
+      if (_vpnState == "CONNECTED") {
+        disconnect();
+        await Future.delayed(const Duration(milliseconds: 200), () {
+          connect();
+        });
+      }
       Get.find<HomeController>().checkConnectionData();
     } catch (e) {
       DialogAndSnack.showSnackBar(

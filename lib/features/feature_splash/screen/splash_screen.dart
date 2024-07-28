@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kivi_vpn/core/i_shared_preference.dart';
-import 'package:kivi_vpn/features/feature_home/controller/home_controller.dart';
 import 'package:kivi_vpn/features/feature_home/screen/home_screen.dart';
 import 'package:kivi_vpn/features/feature_tour_intro/controller/tour_tutorial_controller.dart';
 import 'package:kivi_vpn/features/feature_tour_intro/screen/tour_tutorial_intro_screen.dart';
