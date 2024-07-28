@@ -9,7 +9,7 @@ class BaseController extends Bindings {
   void dependencies() {
     Get.put(V2rayController());
     Get.put(ISharedPreference());
-    Get.put(HomeController());
     Get.put(SpeedTestController());
+    Get.put(HomeController());
   }
 }

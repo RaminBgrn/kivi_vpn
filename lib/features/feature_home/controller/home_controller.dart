@@ -2,15 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ip_country_lookup/ip_country_lookup.dart';
 import 'package:kivi_vpn/common/colors.dart';
+import 'package:kivi_vpn/common/ip_helper.dart';
 import 'package:kivi_vpn/core/v2ray_controller.dart';
 import 'package:kivi_vpn/features/feature_home/model/country_data_model.dart';
-import 'package:svg_flag/svg_flag.dart';
 
 class HomeController extends GetxController {
-  final CountryDataModel _configModel = CountryDataModel();
-  CountryDataModel get getConfigModel => _configModel;
+  CountryDataModel _countryDataModel = CountryDataModel();
+  CountryDataModel get getCountryDataModel => _countryDataModel;
 
   final PageController _pageController = PageController();
   PageController get getPageController => _pageController;
@@ -23,9 +22,6 @@ class HomeController extends GetxController {
 
   bool _animationFlag = false;
   bool get hasButtonClick => _animationFlag;
-
-  String _isp = "نامشخص";
-  String get getISP => _isp;
 
   int _currentIndex = 0;
   int get getCurrentIndex => _currentIndex;
@@ -41,26 +37,14 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onReady() {
-    lookupToFlag();
-    initButtonColor();
+  void onReady() async {
+    checkConnectionData();
     super.onReady();
   }
 
-  // locking for current internet ip and country name and flag
-  void lookupToFlag() async {
-    final countryData = await IpCountryLookup().getIpLocationData();
-    for (int i = 0; i < FlagData.values.length; i++) {
-      if (FlagData.values[i].source.split("/").last.split('.').first ==
-          countryData.country_code!.toLowerCase()) {
-        _configModel.countryFlag = FlagData(FlagData.values[i].source);
-        _configModel.ipAddress = countryData.ip;
-        _configModel.title = countryData.country_name;
-        _isp = countryData.isp ?? "نامشخص";
-        update();
-        break;
-      }
-    }
+  void checkConnectionData() async {
+    _countryDataModel = await IpHelper.lookupToFlag();
+    update();
   }
 
   void connectDisconnect() {
@@ -70,7 +54,7 @@ class HomeController extends GetxController {
       _animationFlag = true;
       update();
       Future.delayed(const Duration(seconds: 3), () {
-        lookupToFlag();
+        checkConnectionData();
         _buttonBackgroundColor = enableButtonColor.withOpacity(0.4);
         _buttonForegroundColor = enableButtonColor;
         _animationFlag = false;
@@ -81,9 +65,7 @@ class HomeController extends GetxController {
       _buttonBackgroundColor = disableButtonColor.withOpacity(0.4);
       _buttonForegroundColor = disableButtonColor;
       update();
-      Future.delayed(const Duration(milliseconds: 500), () {
-        lookupToFlag();
-      });
+      checkConnectionData();
     }
   }
 

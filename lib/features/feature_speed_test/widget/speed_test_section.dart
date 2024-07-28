@@ -126,13 +126,14 @@ class _SpeedTestSectionState extends State<SpeedTestSection> {
                             const Gap(14),
                             SpeedTestDetails(
                               title: 'آی‌پی',
-                              data: clr.getConfigModel.ipAddress ?? '0.0.0.0',
+                              data: clr.getCountryDataModel.ipAddress ??
+                                  '0.0.0.0',
                               titleColor: myOrange[200]!,
                             ),
                             const Gap(14),
                             SpeedTestDetails(
                               title: 'سرور',
-                              data: clr.getISP,
+                              data: clr.getCountryDataModel.isp ?? 'نامشخص',
                               titleColor: myOrange[200]!,
                             ),
                           ],

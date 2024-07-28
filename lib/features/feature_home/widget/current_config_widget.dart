@@ -29,10 +29,10 @@ class CurrentConfigWidget extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: const Color(0xFF1B202A)),
-              child: clr.getConfigModel.countryFlag == null
+              child: clr.getCountryDataModel.countryFlag == null
                   ? const SizedBox(width: 52, height: 50)
                   : SvgFlag(
-                      clr.getConfigModel.countryFlag!,
+                      clr.getCountryDataModel.countryFlag!,
                       width: 50,
                       height: 50,
                     ),
@@ -43,7 +43,7 @@ class CurrentConfigWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AutoSizeText(
-                    clr.getConfigModel.title ?? 'Unknown',
+                    clr.getCountryDataModel.title ?? 'Unknown',
                     presetFontSizes: const [24, 22, 20, 18, 16],
                     overflow: TextOverflow.fade,
                     maxLines: 1,
@@ -53,7 +53,7 @@ class CurrentConfigWidget extends StatelessWidget {
                     ),
                   ),
                   AutoSizeText(
-                    clr.getConfigModel.ipAddress ?? 'Unknown',
+                    clr.getCountryDataModel.ipAddress ?? 'Unknown',
                     presetFontSizes: const [16, 14, 12, 10, 8],
                     overflow: TextOverflow.fade,
                     maxLines: 1,

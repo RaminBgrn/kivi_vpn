@@ -1,7 +1,11 @@
 import 'package:flutter_v2ray/flutter_v2ray.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kivi_vpn/common/colors.dart';
 import 'package:kivi_vpn/common/dialog_and_snack.dart';
+import 'package:kivi_vpn/database/config_db.dart';
+import 'package:kivi_vpn/features/feature_configs/model/config_model.dart';
+import 'package:kivi_vpn/features/feature_home/controller/home_controller.dart';
 
 class V2rayController extends GetxController {
   late V2RayURL _parser;
@@ -33,30 +37,23 @@ class V2rayController extends GetxController {
 
   @override
   void onInit() async {
-    _parser = FlutterV2ray.parseFromURL(
-        'vmess://eyJhZGQiOiJbMmEwMTo0Zjg6MWMxYjo5OTk6OjFdIiwiYWlkIjoiMCIsImhvc3QiOiIiLCJpZCI6IjZkOWQ4NDM0LTIzMjAtNDI4MS1iNTA5LTc5N2VkNTc0MzRlOSIsIm5ldCI6InRjcCIsInBhdGgiOiIiLCJwb3J0IjoiNDQzIiwicHMiOiJpcHY2LURvbmF0ZSIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=');
-    _flutterV2ray = FlutterV2ray(onStatusChanged: (state) {
-      _vpnState = state.state;
-      _downloadSpeed = state.downloadSpeed;
-      _uploadSpeed = state.uploadSpeed;
-      _connectionTime = state.duration;
-      update();
-    });
-
-    await _flutterV2ray.initializeV2Ray();
-    super.onInit();
-  }
-
-  void setConfigData(String link) async {
-    disconnect();
+    final storage = GetStorage();
+    ConfigModel model = await ConfigDb().fetchById(storage.read('selected'));
     try {
-      _parser = FlutterV2ray.parseFromURL(link);
+      _parser = FlutterV2ray.parseFromURL(model.address ?? '');
+      _flutterV2ray = FlutterV2ray(onStatusChanged: (state) {
+        _vpnState = state.state;
+        _downloadSpeed = state.downloadSpeed;
+        _uploadSpeed = state.uploadSpeed;
+        _connectionTime = state.duration;
+        update();
+      });
       await _flutterV2ray.initializeV2Ray();
     } catch (e) {
       DialogAndSnack.showSnackBar(
-          'خطای فرمت', 'متاسفانه کانفیگ به درستی تنظیم نشد', myRed[900]!);
+          'خطا', 'کانفیگ پیشفرض یافت پیدا نشد', myRed[500]!);
     }
-    connect();
+    super.onInit();
   }
 
   @override
@@ -67,6 +64,19 @@ class V2rayController extends GetxController {
     update();
 
     super.onReady();
+  }
+
+  void setConfig(String config) async {
+    disconnect();
+    try {
+      _parser = FlutterV2ray.parseFromURL(config);
+      await _flutterV2ray.initializeV2Ray();
+      connect();
+      Get.find<HomeController>().checkConnectionData();
+    } catch (e) {
+      DialogAndSnack.showSnackBar(
+          'خطا', "لینک کانفیگ به درستی تنظیم نشد", myRed[900]!);
+    }
   }
 
   void getConnectedConfigDelay() async {
@@ -86,8 +96,6 @@ class V2rayController extends GetxController {
           remark: _parser.remark,
           config: _parser.getFullConfiguration(),
           proxyOnly: false);
-    } else {
-      connect();
     }
   }
 

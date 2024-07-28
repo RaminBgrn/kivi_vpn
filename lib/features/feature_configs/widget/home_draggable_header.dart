@@ -1,9 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
+import 'package:kivi_vpn/common/dialog_and_snack.dart';
+import 'package:kivi_vpn/features/feature_configs/controller/configs_controller.dart';
+import 'package:kivi_vpn/features/feature_configs/screen/qr_code_screen.dart';
 import 'package:kivi_vpn/gen/assets.gen.dart';
 
 class HomeDraggableHeader extends StatelessWidget {
@@ -19,8 +23,8 @@ class HomeDraggableHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: () {
-                  Get.back();
+                onTap: () async {
+                  Get.to(() => const QRCodeScreen());
                 },
                 child: Container(
                   padding:
@@ -41,8 +45,14 @@ class HomeDraggableHeader extends StatelessWidget {
               ),
               const Gap(12),
               GestureDetector(
-                onTap: () {
-                  Get.back();
+                onTap: () async {
+                  ClipboardData? clip = await Clipboard.getData('text/plain');
+                  if (clip == null) {
+                    DialogAndSnack.showSnackBar(
+                        'خطا', 'کلیپ‌بورد شما خالی است', myRed[900]!);
+                    return;
+                  }
+                  Get.find<ConfigsController>().setConfigData(clip.text ?? '');
                 },
                 child: Container(
                   padding:

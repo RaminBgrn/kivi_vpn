@@ -21,119 +21,116 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.find<HomeController>().initButtonColor();
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).height,
-          color: const Color(0xFF080808),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Gap(24),
-                Text(
-                  'Kivi VPN',
-                  style: GoogleFonts.vazirmatn(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+      body: Container(
+        width: MediaQuery.sizeOf(context).width,
+        height: MediaQuery.sizeOf(context).height,
+        color: const Color(0xFF080808),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Gap(60),
+              Text(
+                'Kivi VPN',
+                style: GoogleFonts.vazirmatn(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                const Gap(24),
-                Text(
-                  'مدت زمان اتصال شما ',
+              ),
+              const Gap(24),
+              Text(
+                'مدت زمان اتصال شما ',
+                style: GoogleFonts.vazirmatn(
+                  fontSize: 12,
+                  color: myGrey[400],
+                ),
+              ),
+              const Gap(8),
+              GetBuilder<V2rayController>(builder: (clr) {
+                return Text(
+                  clr.getUpTime,
                   style: GoogleFonts.vazirmatn(
-                    fontSize: 12,
+                      fontSize: 34,
+                      color: myGrey[200],
+                      fontWeight: FontWeight.w400),
+                );
+              }),
+              const Gap(12),
+              const CurrentConfigWidget(),
+              const Gap(12),
+              GetBuilder<HomeController>(builder: (clr) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    HomeButton(
+                      onTap: () {
+                        clr.navigatePageView(0);
+                      },
+                      id: 0,
+                      currentIndex: clr.getCurrentIndex,
+                      icon: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                        child:
+                            Assets.images.traffic.image(width: 50, height: 50),
+                      ),
+                    ),
+                    HomeButton(
+                      onTap: () {
+                        clr.navigatePageView(1);
+                      },
+                      id: 1,
+                      currentIndex: clr.getCurrentIndex,
+                      icon: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 6.0, left: 6.0, bottom: 4.0),
+                        child: Assets.images.speed.image(width: 50, height: 50),
+                      ),
+                    ),
+                    HomeButton(
+                      onTap: () {
+                        Get.lazyPut(() => ConfigsController());
+                        Get.find<ConfigsController>().fetchAllConfigs();
+                        Get.to(const ConfigScreen());
+                        clr.navigatePageView(0);
+                      },
+                      id: 3,
+                      currentIndex: clr.getCurrentIndex,
+                      icon: Assets.images.servers.image(width: 50, height: 50),
+                    ),
+                  ],
+                );
+              }),
+              ExpandablePageView(
+                controller: Get.find<HomeController>().getPageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: const [
+                  HomeButtonsSection(),
+                  SpeedTestSection(),
+                ],
+              ),
+              const Gap(36),
+              ConnectButton(
+                onTap: () {
+                  Get.find<HomeController>().connectDisconnect();
+                },
+              ),
+              const Gap(16),
+              GetBuilder<V2rayController>(builder: (clr) {
+                return AutoSizeText(
+                  clr.getVpnState == "CONNECTED" ? 'متصل شد' : "عدم اتصال",
+                  presetFontSizes: const [16, 14, 12, 10, 8],
+                  overflow: TextOverflow.fade,
+                  maxLines: 1,
+                  style: GoogleFonts.vazirmatn(
+                    fontWeight: FontWeight.w300,
                     color: myGrey[400],
                   ),
-                ),
-                const Gap(8),
-                GetBuilder<V2rayController>(builder: (clr) {
-                  return Text(
-                    clr.getUpTime,
-                    style: GoogleFonts.vazirmatn(
-                        fontSize: 34,
-                        color: myGrey[200],
-                        fontWeight: FontWeight.w400),
-                  );
-                }),
-                const Gap(12),
-                const CurrentConfigWidget(),
-                const Gap(12),
-                GetBuilder<HomeController>(builder: (clr) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      HomeButton(
-                        onTap: () {
-                          clr.navigatePageView(0);
-                        },
-                        id: 0,
-                        currentIndex: clr.getCurrentIndex,
-                        icon: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                          child: Assets.images.traffic
-                              .image(width: 50, height: 50),
-                        ),
-                      ),
-                      HomeButton(
-                        onTap: () {
-                          clr.navigatePageView(1);
-                        },
-                        id: 1,
-                        currentIndex: clr.getCurrentIndex,
-                        icon: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 6.0, left: 6.0, bottom: 4.0),
-                          child:
-                              Assets.images.speed.image(width: 50, height: 50),
-                        ),
-                      ),
-                      HomeButton(
-                        onTap: () {
-                          Get.lazyPut(() => ConfigsController());
-                          Get.to(const ConfigScreen());
-
-                          clr.navigatePageView(0);
-                        },
-                        id: 3,
-                        currentIndex: clr.getCurrentIndex,
-                        icon:
-                            Assets.images.servers.image(width: 50, height: 50),
-                      ),
-                    ],
-                  );
-                }),
-                ExpandablePageView(
-                  controller: Get.find<HomeController>().getPageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                    HomeButtonsSection(),
-                    SpeedTestSection(),
-                  ],
-                ),
-                const Gap(36),
-                ConnectButton(
-                  onTap: () {
-                    Get.find<HomeController>().connectDisconnect();
-                  },
-                ),
-                const Gap(16),
-                GetBuilder<V2rayController>(builder: (clr) {
-                  return AutoSizeText(
-                    clr.getVpnState == "CONNECTED" ? 'متصل شد' : "عدم اتصال",
-                    presetFontSizes: const [16, 14, 12, 10, 8],
-                    overflow: TextOverflow.fade,
-                    maxLines: 1,
-                    style: GoogleFonts.vazirmatn(
-                      fontWeight: FontWeight.w300,
-                      color: myGrey[400],
-                    ),
-                  );
-                }),
-                const Gap(16),
-              ],
-            ),
+                );
+              }),
+              const Gap(16),
+            ],
           ),
         ),
       ),

@@ -9,19 +9,27 @@ class ConfigDb {
     ("id" INTEGER NOT NULL ,
      "title" TEXT NOT NULL ,
      "link" TEXT NOT NULL ,
+     "ip" TEXT NOT NULL ,
+     "port" TEXT NOT NULL ,
+     "network" TEXT NOT NULL ,
      PRIMARY KEY ("id" AUTOINCREMENT))""");
   }
 
-  Future<int> create({required String name, required String link}) async {
+  Future<int> create(
+      {required String name,
+      required String link,
+      required String ip,
+      required String port,
+      required String network}) async {
     final database = await DatabaseHelper().dataBase;
     return await database.rawInsert("""INSERT INTO
-        $tableName(title , link)
-        VALUES (? ,?)""", [name, link]);
+        $tableName(title , link , ip , port , network)
+        VALUES (?,?,?,?,?)""", [name, link, ip, port, network]);
   }
 
   Future<List<ConfigModel>> fetchAll() async {
     final database = await DatabaseHelper().dataBase;
-    final configsQuery = await database.query("""SELECT * FROM $tableName""");
+    final configsQuery = await database.rawQuery("SELECT * FROM $tableName");
     return configsQuery
         .map((config) => ConfigModel.fromDatabase(config))
         .toList();
@@ -34,14 +42,23 @@ class ConfigDb {
     return ConfigModel.fromDatabase(configsQuery.first);
   }
 
-  Future<int> updateConfig(
-      {required int id, String? title, String? link}) async {
+  Future<int> updateConfig({
+    required int id,
+    String? title,
+    String? link,
+    String? ip,
+    String? port,
+    String? network,
+  }) async {
     final database = await DatabaseHelper().dataBase;
     return await database.update(
       tableName,
       {
         if (title != null) 'title ': title,
         if (link != null) 'link': link,
+        if (ip != null) 'ip': ip,
+        if (port != null) 'port': port,
+        if (network != null) 'network': network,
       },
       where: "id = ?",
       conflictAlgorithm: ConflictAlgorithm.rollback,
