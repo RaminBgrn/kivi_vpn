@@ -7,6 +7,7 @@ import 'package:kivi_vpn/common/colors.dart';
 import 'package:kivi_vpn/features/feature_configs/controller/configs_controller.dart';
 import 'package:kivi_vpn/features/feature_configs/model/config_model.dart';
 import 'package:kivi_vpn/features/feature_configs/widget/ping.dart';
+import 'package:kivi_vpn/features/feature_edit_config/screen/edit_config_screen.dart';
 import 'package:kivi_vpn/gen/assets.gen.dart';
 
 class ConfigItem extends StatelessWidget {
@@ -28,9 +29,8 @@ class ConfigItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
                 width: 1,
-                color:
-                    model.isSelected ? enableButtonColor : disableButtonColor),
-            color: disableButtonColor),
+                color: model.isSelected ? enableButtonColor : myGrey[800]!),
+            color: myGrey[800]!),
         child: Column(
           children: [
             Expanded(
@@ -108,7 +108,9 @@ class ConfigItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        // Get.find<V2rayController>().editLinkConfiguration();
+                      },
                       child: Assets.svgs.delete.svg(
                         colorFilter:
                             ColorFilter.mode(myRed[300]!, BlendMode.srcIn),
@@ -116,7 +118,9 @@ class ConfigItem extends StatelessWidget {
                     ),
                     const Gap(8),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(const EditConfigScreen());
+                      },
                       child: Assets.svgs.edit.svg(
                         colorFilter:
                             ColorFilter.mode(myOrange[300]!, BlendMode.srcIn),

@@ -7,24 +7,24 @@ class ConfigDb {
   Future<void> createTable(Database database) async {
     await database.execute("""CREATE TABLE IF NOT EXISTS $tableName 
     ("id" INTEGER NOT NULL ,
-     "title" TEXT NOT NULL ,
-     "link" TEXT NOT NULL ,
+     "remark" TEXT NOT NULL ,
      "ip" TEXT NOT NULL ,
      "port" TEXT NOT NULL ,
      "network" TEXT NOT NULL ,
+     "json" TEXT NOT NULL ,
      PRIMARY KEY ("id" AUTOINCREMENT))""");
   }
 
   Future<int> create(
-      {required String name,
-      required String link,
+      {required String remark,
       required String ip,
       required String port,
+      required String json,
       required String network}) async {
     final database = await DatabaseHelper().dataBase;
     return await database.rawInsert("""INSERT INTO
-        $tableName(title , link , ip , port , network)
-        VALUES (?,?,?,?,?)""", [name, link, ip, port, network]);
+        $tableName(remark , ip , port , network , json)
+        VALUES (?,?,?,?,?)""", [remark, ip, port, network, json]);
   }
 
   Future<List<ConfigModel>> fetchAll() async {
@@ -44,21 +44,21 @@ class ConfigDb {
 
   Future<int> updateConfig({
     required int id,
-    String? title,
-    String? link,
+    String? remark,
     String? ip,
     String? port,
     String? network,
+    String? json,
   }) async {
     final database = await DatabaseHelper().dataBase;
     return await database.update(
       tableName,
       {
-        if (title != null) 'title ': title,
-        if (link != null) 'link': link,
+        if (remark != null) 'remark ': remark,
         if (ip != null) 'ip': ip,
         if (port != null) 'port': port,
         if (network != null) 'network': network,
+        if (json != null) 'link': json,
       },
       where: "id = ?",
       conflictAlgorithm: ConflictAlgorithm.rollback,

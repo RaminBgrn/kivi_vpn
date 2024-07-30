@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kivi_vpn/common/colors.dart';
 import 'package:kivi_vpn/common/ip_helper.dart';
-import 'package:kivi_vpn/core/v2ray_controller.dart';
+import 'package:kivi_vpn/features/feature_v2ray/controller/v2ray_controller.dart';
 import 'package:kivi_vpn/features/feature_home/model/country_data_model.dart';
 
 class HomeController extends GetxController {
@@ -14,10 +14,10 @@ class HomeController extends GetxController {
   final PageController _pageController = PageController();
   PageController get getPageController => _pageController;
 
-  Color _buttonBackgroundColor = disableButtonColor.withOpacity(0.4);
+  Color _buttonBackgroundColor = myGrey[800]!.withOpacity(0.4);
   Color get getButtonBackgroundColor => _buttonBackgroundColor;
 
-  Color _buttonForegroundColor = disableButtonColor;
+  Color _buttonForegroundColor = myGrey[700]!;
   Color get getButtonForegroundColor => _buttonForegroundColor;
 
   bool _animationFlag = false;
@@ -30,7 +30,7 @@ class HomeController extends GetxController {
     final controller = Get.find<V2rayController>();
     log(controller.getVpnState);
     if (controller.getVpnState == "CONNECTED") {
-      _buttonBackgroundColor = enableButtonColor.withOpacity(0.4);
+      _buttonBackgroundColor = enableButtonColor;
       _buttonForegroundColor = enableButtonColor;
     }
     update();
@@ -62,8 +62,8 @@ class HomeController extends GetxController {
       });
     } else {
       controller.disconnect();
-      _buttonBackgroundColor = disableButtonColor.withOpacity(0.4);
-      _buttonForegroundColor = disableButtonColor;
+      _buttonBackgroundColor = myGrey[800]!;
+      _buttonForegroundColor = myGrey[700]!;
       update();
       checkConnectionData();
     }

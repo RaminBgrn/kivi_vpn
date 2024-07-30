@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
-import 'package:kivi_vpn/core/v2ray_controller.dart';
+import 'package:kivi_vpn/features/feature_v2ray/controller/v2ray_controller.dart';
 import 'package:kivi_vpn/features/feature_configs/controller/configs_controller.dart';
 import 'package:kivi_vpn/features/feature_configs/screen/configs_screen.dart';
 import 'package:kivi_vpn/features/feature_home/controller/home_controller.dart';
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        color: const Color(0xFF080808),
+        color: myGrey[900],
         child: SingleChildScrollView(
           child: Column(
             children: [

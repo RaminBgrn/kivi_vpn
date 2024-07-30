@@ -18,7 +18,7 @@ class CurrentConfigWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: const Color(0xFF111418),
+        color: myGrey[800],
       ),
       child: GetBuilder<HomeController>(builder: (clr) {
         return Row(

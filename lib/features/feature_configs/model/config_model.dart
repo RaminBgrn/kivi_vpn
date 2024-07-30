@@ -1,17 +1,17 @@
 class ConfigModel {
   int? id;
   String? remake;
-  String? address;
   String? ip;
   String? port;
   String? network;
+  String? json;
   String? delay = "0";
   bool isSelected = false;
 
   ConfigModel({
     this.id,
     this.remake,
-    this.address,
+    this.json,
     this.delay = "0",
     this.ip,
     this.port,
@@ -21,9 +21,9 @@ class ConfigModel {
 
   factory ConfigModel.fromDatabase(Map<String, dynamic> map) => ConfigModel(
       id: map['id']?.toInt() ?? 0,
-      remake: map['title'] ?? '',
-      ip: map['ip'] ?? "127.0.0.1",
+      remake: map['remark'] ?? '',
       port: map['port'] ?? "000",
+      ip: map['ip'] ?? "127.0.0.1",
       network: map['network'] ?? 'localhost',
-      address: map['link'] ?? '');
+      json: map['json'] ?? '');
 }

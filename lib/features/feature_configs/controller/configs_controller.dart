@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kivi_vpn/common/colors.dart';
 import 'package:kivi_vpn/common/dialog_and_snack.dart';
-import 'package:kivi_vpn/core/v2ray_controller.dart';
+import 'package:kivi_vpn/features/feature_v2ray/controller/v2ray_controller.dart';
 import 'package:kivi_vpn/database/config_db.dart';
 import 'package:kivi_vpn/features/feature_configs/model/config_model.dart';
 
@@ -28,15 +28,15 @@ class ConfigsController extends GetxController {
     final defaultConfigId = GetStorage();
     final configModel =
         await ConfigDb().fetchById(defaultConfigId.read('selected'));
-    return configModel.address ?? '';
+    return configModel.json ?? '';
   }
 
   void fetchAllConfigs() async {
     final readBox = GetStorage();
-    int selectedDefaultId = readBox.read('selected');
+    int selectedDefaultId = readBox.read('selected') ?? -1;
     _configsList.clear();
     _configsList.addAll(await ConfigDb().fetchAll());
-    markSelectedConfig(selectedDefaultId);
+    if (selectedDefaultId > 0) markSelectedConfig(selectedDefaultId);
     update();
   }
 
@@ -53,13 +53,14 @@ class ConfigsController extends GetxController {
 
   void setConfigData(String link) async {
     try {
-      V2RayURL userImport = FlutterV2ray.parseFromURL(link);
+      ConfigModel model =
+          Get.find<V2rayController>().getV2rayDataModelFromUrl(link);
       await ConfigDb().create(
-          name: userImport.remark,
-          link: link,
-          ip: userImport.address,
-          port: userImport.port.toString(),
-          network: userImport.network);
+          remark: model.remake ?? "Kivi Custom",
+          ip: model.ip ?? "127.0.0.1",
+          port: model.port ?? "000",
+          network: model.network ?? 'tcp',
+          json: model.json ?? "");
       fetchAllConfigs();
     } catch (error) {
       DialogAndSnack.showSnackBar(
@@ -74,7 +75,7 @@ class ConfigsController extends GetxController {
     for (var each in _configsList) {
       if (each.id == id) {
         each.isSelected = true;
-        Get.find<V2rayController>().setConfig(each.address ?? '');
+        Get.find<V2rayController>().setConfig(each.json ?? '');
       } else {
         each.isSelected = false;
       }
@@ -83,12 +84,21 @@ class ConfigsController extends GetxController {
   }
 
   void getConfigPing(ConfigModel model) async {
-    Get.find<V2rayController>().disconnect();
-    V2RayURL parser = FlutterV2ray.parseFromURL(model.address!);
-    var delay = await FlutterV2ray(onStatusChanged: (V2RayStatus status) {})
-        .getServerDelay(config: parser.getFullConfiguration(indent: 2));
-    model.delay = delay.toString();
-    Get.find<V2rayController>().connect();
+    final v2rayController = Get.find<V2rayController>();
+    if (v2rayController.getVpnState == "CONNECTED") {
+      v2rayController.disconnect();
+      var delay = await FlutterV2ray(onStatusChanged: (V2RayStatus status) {})
+          .getServerDelay(config: model.json ?? '');
+      model.delay = delay.toString();
+      Future.delayed(const Duration(milliseconds: 200), () {
+        v2rayController.connect();
+      });
+    } else {
+      var delay = await FlutterV2ray(onStatusChanged: (V2RayStatus status) {})
+          .getServerDelay(config: model.json ?? '');
+      model.delay = delay.toString();
+    }
+
     update();
   }
 

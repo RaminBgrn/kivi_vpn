@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
-import 'package:kivi_vpn/core/v2ray_controller.dart';
+import 'package:kivi_vpn/features/feature_v2ray/controller/v2ray_controller.dart';
 import 'package:kivi_vpn/features/feature_home/controller/home_controller.dart';
 import 'package:kivi_vpn/features/feature_home/widget/trafic_item.dart';
 import 'package:kivi_vpn/features/feature_speed_test/controller/speed_test_controller.dart';
@@ -32,10 +32,10 @@ class _SpeedTestSectionState extends State<SpeedTestSection> {
       width: MediaQuery.sizeOf(context).width,
       height: 200,
       margin: const EdgeInsets.all(12),
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.only(top: 12, bottom: 12, right: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: const Color(0xFF111418),
+        color: myGrey[800],
       ),
       child: Column(
         children: [

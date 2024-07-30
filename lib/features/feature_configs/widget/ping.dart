@@ -18,9 +18,10 @@ class _PingState extends State<Ping> {
 
   @override
   void initState() {
-    _textColor = myGrey[200]!;
-    _backgroundColor = myGrey[900]!;
-    setState(() {});
+    setState(() {
+      _textColor = myGrey[200]!;
+      _backgroundColor = myGrey[900]!;
+    });
     super.initState();
   }
 
@@ -72,6 +73,11 @@ class _PingState extends State<Ping> {
       setState(() {
         _textColor = myOrange[200]!;
         _backgroundColor = myOrange[500]!;
+      });
+    } else if (temp == 0) {
+      setState(() {
+        _textColor = myGrey[200]!;
+        _backgroundColor = myGrey[500]!;
       });
     } else {
       setState(() {

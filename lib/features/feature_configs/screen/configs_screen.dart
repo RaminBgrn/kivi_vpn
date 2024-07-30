@@ -1,6 +1,7 @@
 import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kivi_vpn/common/colors.dart';
 
 import 'package:kivi_vpn/features/feature_configs/controller/configs_controller.dart';
 import 'package:kivi_vpn/features/feature_configs/widget/config_item.dart';
@@ -14,7 +15,7 @@ class ConfigScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF080808),
+      backgroundColor: myGrey[900],
       body: SafeArea(
         child: DraggableHome(
           appBarColor: Colors.transparent,
