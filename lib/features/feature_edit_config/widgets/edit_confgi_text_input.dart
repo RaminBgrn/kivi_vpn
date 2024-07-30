@@ -21,6 +21,7 @@ class EditConfigTextInput extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: TextField(
           controller: controller,
+          textAlign: TextAlign.end,
           style: GoogleFonts.vazirmatn(
             fontSize: 16,
             fontWeight: FontWeight.w600,

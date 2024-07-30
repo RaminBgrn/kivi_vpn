@@ -30,7 +30,7 @@ class HomeController extends GetxController {
     final controller = Get.find<V2rayController>();
     log(controller.getVpnState);
     if (controller.getVpnState == "CONNECTED") {
-      _buttonBackgroundColor = enableButtonColor;
+      _buttonBackgroundColor = enableButtonColor.withOpacity(0.4);
       _buttonForegroundColor = enableButtonColor;
     }
     update();

@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter_v2ray/flutter_v2ray.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -135,7 +132,6 @@ class V2rayController extends GetxController {
   // }
 
   void connect() async {
-    log(_fullConfigurationAsString);
     _address = _model.ip ?? '127.0.0.1';
     _port = _model.port.toString();
     _remark = _model.remake ?? 'Kivi Custom';

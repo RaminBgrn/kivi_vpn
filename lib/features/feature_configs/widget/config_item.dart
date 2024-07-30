@@ -7,6 +7,7 @@ import 'package:kivi_vpn/common/colors.dart';
 import 'package:kivi_vpn/features/feature_configs/controller/configs_controller.dart';
 import 'package:kivi_vpn/features/feature_configs/model/config_model.dart';
 import 'package:kivi_vpn/features/feature_configs/widget/ping.dart';
+import 'package:kivi_vpn/features/feature_edit_config/controller/edit_config_controller.dart';
 import 'package:kivi_vpn/features/feature_edit_config/screen/edit_config_screen.dart';
 import 'package:kivi_vpn/gen/assets.gen.dart';
 
@@ -119,7 +120,8 @@ class ConfigItem extends StatelessWidget {
                     const Gap(8),
                     GestureDetector(
                       onTap: () {
-                        Get.to(const EditConfigScreen());
+                        Get.lazyPut(() => EditConfigController());
+                        Get.to(EditConfigScreen(model: model));
                       },
                       child: Assets.svgs.edit.svg(
                         colorFilter:
