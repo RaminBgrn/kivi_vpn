@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
 import 'package:kivi_vpn/common/dialog_and_snack.dart';
+import 'package:kivi_vpn/features/feature_home/controller/home_controller.dart';
 import 'package:kivi_vpn/features/feature_v2ray/controller/v2ray_controller.dart';
 import 'package:kivi_vpn/database/config_db.dart';
 import 'package:kivi_vpn/features/feature_configs/model/config_model.dart';
@@ -34,11 +35,10 @@ class ConfigsController extends GetxController {
   }
 
   void fetchAllConfigs() async {
-    final readBox = GetStorage();
-    int selectedDefaultId = readBox.read('selected') ?? -1;
+    final selectedConfigId = selectedConfigAsDefault();
     _configsList.clear();
     _configsList.addAll(await ConfigDb().fetchAll());
-    if (selectedDefaultId > 0) markSelectedConfig(selectedDefaultId);
+    if (selectedConfigId > 0) markSelectedConfig(selectedConfigId);
     update();
   }
 
@@ -53,7 +53,18 @@ class ConfigsController extends GetxController {
     update();
   }
 
+  int selectedConfigAsDefault() {
+    final readBox = GetStorage();
+    int selectedDefaultId = readBox.read('selected') ?? -1;
+    return selectedDefaultId;
+  }
+
   void _deleteConfigFromDb(int id) {
+    final defaultConfigId = selectedConfigAsDefault();
+    if (defaultConfigId == id) {
+      Get.find<HomeController>().connectDisconnect();
+      Get.find<V2rayController>().removeVpnData();
+    }
     ConfigDb().delete(id);
     fetchAllConfigs();
   }

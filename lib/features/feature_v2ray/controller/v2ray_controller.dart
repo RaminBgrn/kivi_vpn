@@ -75,6 +75,18 @@ class V2rayController extends GetxController {
     super.onReady();
   }
 
+  void removeVpnData() {
+    if (_vpnState == "CONNECTED") {
+      _flutterV2ray.stopV2Ray();
+    }
+    _model = ConfigModel();
+    _address = _model.ip ?? "127.0.0.1";
+    _port = _model.port.toString();
+    _remark = _model.remake ?? 'Kivi Custom';
+    _fullConfigurationAsString = "";
+    update();
+  }
+
   void setConfig(ConfigModel model) async {
     _model = model;
     update();
