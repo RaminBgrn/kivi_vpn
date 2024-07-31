@@ -110,7 +110,8 @@ class ConfigItem extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        // Get.find<V2rayController>().editLinkConfiguration();
+                        Get.find<ConfigsController>()
+                            .deleteConfig(model.id ?? -1, model.remake ?? '');
                       },
                       child: Assets.svgs.delete.svg(
                         colorFilter:

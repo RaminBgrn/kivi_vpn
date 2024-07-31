@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_v2ray/flutter_v2ray.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
 import 'package:kivi_vpn/common/dialog_and_snack.dart';
 import 'package:kivi_vpn/features/feature_v2ray/controller/v2ray_controller.dart';
@@ -49,6 +51,99 @@ class ConfigsController extends GetxController {
       }
     }
     update();
+  }
+
+  void _deleteConfigFromDb(int id) {
+    ConfigDb().delete(id);
+    fetchAllConfigs();
+  }
+
+  void deleteConfig(int id, String remake) {
+    Get.dialog(
+      Dialog(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(12),
+          height: 150,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14), color: myGrey[800]),
+          child: Column(
+            children: [
+              Text(
+                'خذف کانفیگ',
+                style: GoogleFonts.vazirmatn(
+                  fontSize: 22,
+                  color: myGrey[200],
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Gap(12),
+              Expanded(
+                child: Text(
+                  'آیا از حذف کانفیگ $remake مطمئن هستید ؟',
+                  textDirection: TextDirection.rtl,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.vazirmatn(
+                      fontSize: 18,
+                      color: myGrey[300],
+                      fontWeight: FontWeight.normal),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      _deleteConfigFromDb(id);
+                      Get.back();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 22, vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: myGreen[600]!.withOpacity(0.2),
+                      ),
+                      child: Text(
+                        'بله',
+                        style: GoogleFonts.vazirmatn(
+                          fontSize: 18,
+                          color: myGreen[500],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Gap(22),
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 22, vertical: 6),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: myRed[600]!.withOpacity(0.2),
+                      ),
+                      child: Text(
+                        'خیر',
+                        style: GoogleFonts.vazirmatn(
+                          fontSize: 18,
+                          color: myRed[500],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void setConfigData(String link) async {
