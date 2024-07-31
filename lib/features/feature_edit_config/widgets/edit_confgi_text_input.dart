@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kivi_vpn/common/colors.dart';
 
 class EditConfigTextInput extends StatelessWidget {
   final TextEditingController controller;
   final String title;
+  final bool onlyDigit;
 
   const EditConfigTextInput({
     required this.controller,
     required this.title,
+    this.onlyDigit = false,
     super.key,
   });
 
@@ -21,6 +24,9 @@ class EditConfigTextInput extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: TextField(
           controller: controller,
+          keyboardType: onlyDigit ? TextInputType.number : TextInputType.text,
+          inputFormatters:
+              onlyDigit ? [FilteringTextInputFormatter.digitsOnly] : [],
           textAlign: TextAlign.end,
           style: GoogleFonts.vazirmatn(
             fontSize: 16,

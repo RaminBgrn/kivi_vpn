@@ -58,7 +58,7 @@ class ConfigDb {
         if (ip != null) 'ip': ip,
         if (port != null) 'port': port,
         if (network != null) 'network': network,
-        if (json != null) 'link': json,
+        if (json != null) 'json': json,
       },
       where: "id = ?",
       conflictAlgorithm: ConflictAlgorithm.rollback,

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kivi_vpn/common/colors.dart';
+import 'package:kivi_vpn/common/dialog_and_snack.dart';
 import 'package:kivi_vpn/common/ip_helper.dart';
 import 'package:kivi_vpn/features/feature_v2ray/controller/v2ray_controller.dart';
 import 'package:kivi_vpn/features/feature_home/model/country_data_model.dart';
@@ -49,6 +50,11 @@ class HomeController extends GetxController {
 
   void connectDisconnect() {
     final controller = Get.find<V2rayController>();
+    if (controller.getConfigDataAsString.isEmpty) {
+      DialogAndSnack.showSnackBar(
+          'خطا', 'هیچ کانفیگی برای اتصال پیدا نشد', myRed[500]!);
+      return;
+    }
     if (controller.getVpnState == "DISCONNECTED") {
       controller.connect();
       _animationFlag = true;

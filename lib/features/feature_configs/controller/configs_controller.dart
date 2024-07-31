@@ -75,7 +75,7 @@ class ConfigsController extends GetxController {
     for (var each in _configsList) {
       if (each.id == id) {
         each.isSelected = true;
-        Get.find<V2rayController>().setConfig(each.json ?? '');
+        Get.find<V2rayController>().setConfig(each);
       } else {
         each.isSelected = false;
       }

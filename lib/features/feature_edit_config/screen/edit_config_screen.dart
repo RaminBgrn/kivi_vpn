@@ -50,7 +50,9 @@ class _EditConfigScreenState extends State<EditConfigScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.back();
+                        },
                         child: Assets.svgs.cancel.svg(
                           height: 34,
                           width: 34,
@@ -68,7 +70,9 @@ class _EditConfigScreenState extends State<EditConfigScreen> {
                             color: myGrey[200]),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          _editController.saveConfig();
+                        },
                         child: Assets.svgs.save.svg(
                           height: 34,
                           width: 34,
@@ -99,9 +103,11 @@ class _EditConfigScreenState extends State<EditConfigScreen> {
                             Expanded(
                               flex: 5,
                               child: EditConfigTextInput(
-                                  controller:
-                                      _editController.getPortTextController,
-                                  title: "پورت"),
+                                controller:
+                                    _editController.getPortTextController,
+                                title: "پورت",
+                                onlyDigit: true,
+                              ),
                             ),
                             const Gap(12),
                             Expanded(
@@ -122,10 +128,11 @@ class _EditConfigScreenState extends State<EditConfigScreen> {
                         EditConfigTextInput(
                           controller: _editController.getAlterIdTextController,
                           title: "Alter Id",
+                          onlyDigit: true,
                         ),
                         const Gap(8),
                         CustomDropdown<String>(
-                            initialItem: "auto",
+                            initialItem: _editController.getSecurity,
                             decoration: CustomDropdownDecoration(
                               prefixIcon: Text(
                                 'Security',
@@ -159,7 +166,10 @@ class _EditConfigScreenState extends State<EditConfigScreen> {
                               closedBorderRadius: BorderRadius.circular(14),
                             ),
                             items: _editController.getSecurityList,
-                            onChanged: (security) {}),
+                            onChanged: (security) {
+                              _editController
+                                  .onSecurityChange(security ?? "none");
+                            }),
                         const Gap(28),
                         const EditHeader(title: 'ویرایش Transport'),
                         const Gap(62),

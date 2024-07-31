@@ -36,6 +36,7 @@ class V2rayController extends GetxController {
   int get getServerDelay => _serverDelay;
 
   String _fullConfigurationAsString = "";
+  String get getConfigDataAsString => _fullConfigurationAsString;
 
   ConfigModel _model = ConfigModel();
 
@@ -68,15 +69,18 @@ class V2rayController extends GetxController {
     _address = _model.ip ?? "127.0.0.1";
     _port = _model.port.toString();
     _remark = _model.remake ?? 'Kivi Custom';
+    _flutterV2ray.requestPermission();
     update();
 
     super.onReady();
   }
 
-  void setConfig(String json) async {
+  void setConfig(ConfigModel model) async {
+    _model = model;
+    update();
     // if (_vpnState == "CONNECTED") disconnect();
     try {
-      _fullConfigurationAsString = json;
+      _fullConfigurationAsString = model.json!;
       await _flutterV2ray.initializeV2Ray();
       // connect();
       if (_vpnState == "CONNECTED") {
@@ -137,6 +141,7 @@ class V2rayController extends GetxController {
     _remark = _model.remake ?? 'Kivi Custom';
     update();
     await _flutterV2ray.initializeV2Ray();
+
     if (await _flutterV2ray.requestPermission()) {
       _flutterV2ray.startV2Ray(
           remark: _model.remake ?? "Kivi Custom",
