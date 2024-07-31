@@ -1,4 +1,4 @@
-package com.example.kivi_vpn
+package online.ramiin.kivi
 
 import io.flutter.embedding.android.FlutterActivity
 
